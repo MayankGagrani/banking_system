@@ -1,0 +1,27 @@
+<h1>Add Account </h1>
+		<span id='message'></span>
+		<%= form_for @beneficiery_account, url: account_beneficiery_accounts_path(account_id: @account.id) do |f|%>
+			<div class ="form-field">
+				<%= f.label :account_no %>
+				<%= f.text_field :beneficiery_account_no,id: "account", class: "form-control" %>
+			</div>
+
+			<div class ="form-field">
+				<%= f.label :confirm_account_no %>
+				<%= f.text_field :confirm_account_no,id: "confirm_account", class: "form-control" %>
+			</div>
+
+			<%= f.submit "submit", class: "btn btn-primary"%>
+		<% end %>
+
+		<script type="text/javascript">
+			$(document).ready(function(){ 
+				$('#account, #confirm_account').on('focusout', function () {
+				  if ($('#account').val() == $('#confirm_account').val()) {
+				    $('#message').html('Matching').css('color', 'green');
+				  } else 
+				    $('#message').html('Account no. Not Matching').css('color', 'red');
+				});
+			});
+
+		</script>

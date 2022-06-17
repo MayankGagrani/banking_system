@@ -1,0 +1,105 @@
+<%= form_for(@user, url: create_manager_users_path )do |f| %>
+
+	<div class= col-sm-12 >
+	  <div class= col-sm-12 >
+	  <h2>Personal Info </h2>
+	  <div style="border: 1px solid;"></div>
+	    <div class="form-group col-sm-6">
+	        <%= f.label :first_name %>
+	        <label style= "color:red;">*</label><br>
+	        <%= f.text_field :first_name,placeholder: "First Name",class: "form-control" %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	      <%= f.label :last_name %>
+	      <label style= "color:red;">*</label><br>
+	      <%= f.text_field :last_name,placeholder: "Last Name",class: "form-control" %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	      <%= f.label :occupation %><br>
+	      <%= f.text_field :occupation,placeholder: "Occupation",class: "form-control" %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	      <%= f.label :gender %>
+	      <label style= "color:red;">*</label><br>
+	      <%= f.radio_button :gender, "male" %> Male
+	      <%= f.radio_button :gender, "female" %> Female
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	        <%= f.label :father_name %><br>
+	        <%= f.text_field :father_name,placeholder: "Father Name",class: "form-control" %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	        <%= f.label :mother_name %><br>
+	        <%= f.text_field :mother_name,placeholder: "Mother Name",class: "form-control" %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	        <%= f.label :father_occupation %><br>
+	        <%= f.text_field :father_occupation,placeholder: "Father occupation",class: "form-control" %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	        <%= f.label :mother_occupation %><br>
+	        <%= f.text_field :mother_occupation,placeholder: "Mother occupation",class: "form-control" %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	        <%= f.label :mobile_number %>
+	        <label style= "color:red;">*</label><br>
+	        <%= f.text_field :mobile_number,placeholder: "Mobile",class: "form-control" %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	        <%= f.label :aadhar_number %>
+	        <label style= "color:red;">*</label><br>
+	        <%= f.text_field :aadhar_no, placeholder: "Adhar no.",class: "form-control" %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	      <%= f.label :pan_card_no %>
+	      <label style= "color:red;">*</label><br>
+	      <%= f.text_field :pan_no, placeholder: "PAN No.",class: "form-control" %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	      <%= f.label :email %>
+	      <label style= "color:red;">*</label><br>
+	      <%= f.email_field :email, autofocus: true,placeholder: "abc@gmail.com", class: "form-control" %>
+	    </div>
+
+	    <!-- <div class="form-group col-sm-6">
+	      <%= f.label :role %>
+	      <label style= "color:red;">*</label><br>
+	      <%= f.text_field :role, placeholder: "abc@gmail.com", class: "form-control" %>
+	    </div> -->
+
+	    <div class="form-group col-sm-6">
+	      <label style= "color:red;">*</label><br>
+	      <%= f.label :select_bank %>
+	      <%= f.select(:bank_id, Bank.pluck(:bank_name,:id),{include_blank: "select"}, class: "form-control") %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	      <%= f.label :password %> 
+	      <label style= "color:red;">*</label> 
+	      <% if @minimum_password_length %>
+	      <em>(<%= @minimum_password_length %> characters minimum)</em>
+	      <% end %><br />
+	      <%= f.password_field :password,placeholder: "Password", class: "form-control" %>
+	    </div>
+
+	    <div class="form-group col-sm-6">
+	      <%= f.label :password_confirmation %>
+	      <label style= "color:red;">*</label><br>
+	      <%= f.password_field :password_confirmation, placeholder: "confirm password",class: "form-control" %>
+	    </div>
+	  </div>
+
+	  <%= f.submit "create", class: "btn btn-lg btn-primary" %>
+	</div>	
+<% end %>

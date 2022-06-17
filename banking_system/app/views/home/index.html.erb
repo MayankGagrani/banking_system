@@ -1,0 +1,67 @@
+	<%#= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+	<% if current_user.account.verify == nil %>	
+		<h1>Welcome, <%= current_user.first_name %> s/o <%= current_user.father_name%> </h1>
+	   <h2> Congrats!, Your Account has been created successfully!! You will able to login your account within 24 hours after verify </h2>
+
+	   <div>
+	   	A/c number: <%= current_user.account.accnt_number%><br>
+	   	Avilable Balance: <%= current_user.account.balance%><br>
+	   	A/c Openned at: <%= current_user.account.created_at.to_date.try(:strftime,'%d-%m-%Y')%><br>
+		</div>
+	<% else %>
+
+		<%# if flash[:notice] || flash[:error]	%>
+				<%#= flash[:notice] || flash[:error]%>
+		<%# end %>	
+
+		<div class="wrapper wrapper-content">
+		  <div class="flash">
+		    <% if flash[:notice] || flash[:error] %>
+		      <div class="alert alert-info alert-success">
+		        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		         <%= flash[:notice] || flash[:error] %>
+		      </div>
+		    <% end %>
+		  </div>
+		</div>
+
+
+		<h3 style=" text-align:right;color: blue">Welcome, <%= current_user.first_name %> s/o <%= current_user.father_name%> </h3>
+				<% account = current_user.account %>
+				<table class="table table-striped account-details">
+				  <thead>
+				    <tr>
+				      <th >Account no.</th>
+				      <th>Bank</th>
+				      <th>Available balance</th>
+				      <th>Transaction</th>
+						</tr>
+				  </thead>
+				  <tbody>
+				  	<tr>
+				  		<td> <%= account.accnt_number %></td>
+				  		<td> <%= current_user.bank.bank_name %></td>
+				  		<td> INR <%= account.balance %></td>
+				  		<td> <%= link_to "click here for last 10 transactions", account_account_transactions_path(account) %></td>
+				  	</tr>
+				  </tbody>
+				</table>
+			
+			<%= link_to "Add Account Beneficiery", new_account_beneficiery_account_path(account) %> |
+			<%= link_to "Fund transfer",account_beneficiery_accounts_path(account)  %>
+
+	<% end %>
+		
+
+
+<style type="text/css">
+	.account-details, th, td {
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+	.table {
+		width: 75%;
+		margin-left: 80px;
+		margin-top: 50px;
+	}
+</style>

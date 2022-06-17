@@ -1,0 +1,75 @@
+<div class = "container">	
+	<% if @account.beneficiery_accounts.any? %> 	
+		<%= form_for @account_transaction, url: account_account_transactions_path(@account) do |f| %>
+			<div class="col-sm-12", style = "padding-left:64px;">	
+				<div class="form-field col-sm-6">
+					<%= f.label :amount %><lable style = "color: red">*</lable>
+					<%= f.text_field :amount, class: "form-control" %>
+			  </div>
+
+				<div class="form-field col-sm-6">
+					<%= f.label :remark %>
+					<%= f.text_field :remark, class: "form-control" %>
+				</div>
+			</div>
+			<br><br>
+
+			<table class="table table-striped account-details">
+				<thead>
+					<tr>
+						<th>A/C no. </th>
+						<th>Bank</th>
+						<th>User name</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<% @beneficiery_accounts.each do |b_accnt| %>
+					<tr>	
+					  <td><%= f.radio_button :account_to_transfer, b_accnt.beneficiery_account_no %> <%= b_accnt.beneficiery_account_no %></td>
+						<td><%= b_accnt.account.user.bank.bank_name %></td>
+						<td><%= b_accnt.account.user.first_name %> </td>
+						<td><%#= accnt.deposit %></td>
+						<td><%#= accnt.account.balance %></td>
+					</tr>
+				<% end %>
+			</table>
+				<%= f.submit "submit", class: "btn btn-primary", id: "action_button"%>
+		<% end %>
+	<% else %>
+			<table class="table table-striped account-details">
+				<thead>
+					<tr>
+						<th style="text-align: center;">You Have no bernificiery account present</th>
+					</tr>
+				</thead>
+			</table>		
+	<% end %>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#new_account_transaction').submit(function(e) {
+			if ($("#account_transaction_amount").val() == ""){
+				$('#account_transaction_amount').after('<span class="error">Please enter amount</span>');
+				return false;
+			}
+			else if (!$("input:radio[name='account_transaction_account_to_transfer']").is(":checked")) {
+			  alert('Please Select account number');
+			  return false;
+			}
+			else 
+			{ 	  
+				return true;
+			}
+		});
+	});
+
+</script>
+
+<style type="text/css">
+	.error{
+		color: red;
+	}
+</style>

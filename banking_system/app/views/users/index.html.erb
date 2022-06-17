@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<div class="wrapper wrapper-content">
+  <div class="flash">
+    <% if flash[:notice] || flash[:error] %>
+      <div class="alert alert-info alert-success">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+         <%= notice %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<h1> Welcome <%= current_user.role.try(:humanize) %> </h1>
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Father Name</th>
+      <th scope="col">Mother Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mobile number</th>
+      <th scope="col">Aadhar number</th>
+      <th scope="col">PAN</th>
+      <th scope="col">Bank name </th>
+      <th scope="col">Account number</th>
+      <th scope="col">verified_by</th>
+      <th scope="col">verify</th>
+		</tr>
+  </thead>
+  <tbody>
+    <%# binding.pry %>
+  	<% @users.each do |u| %>
+  		<% bank = u.bank %>
+  		<tr>
+  			<td> <%= u.first_name %></td>
+  			<td> <%= u.last_name %></td>
+  			<td> <%= u.father_name %></td>
+  			<td> <%= u.mother_name %></td>
+  			<td> <%= u.email %></td>
+  			<td> <%= u.mobile_number %></td>
+  			<td> <%= u.aadhar_no %></td>
+  			<td> <%= u.pan_no %></td>
+  			<td> <%= bank.bank_name %></td>
+  			<td> <%= u.account.accnt_number  %></td>
+        <td> <%= u.account.verified_by %></td>
+  			<% if u.account.verify == nil %>
+          <td> <%= link_to "verify", verify_user_path(u.id, role: current_user.role) %></td>
+        <% else %>
+          <td><span class="glyphicon glyphicon-ok"></span></td>
+        <% end %>
+  		</tr>
+  	<% end %>
+  </tbody>
+</table>
+
+<style type="text/css">
+  .table {
+    width: 75%;
+    margin-left: 80px;
+    margin-top: 50px;
+  }
+
+  thead {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+</style>

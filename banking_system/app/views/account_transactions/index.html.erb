@@ -1,0 +1,57 @@
+<h1>welcome</h1>
+	<strong style="text-align: right">[<%= Date.today.try(:strftime,"%d-%m-%Y") %> | <%= Time.now %>]</strong>
+	
+	<table class="table account-details">
+	  <thead>
+	    <tr>
+	      <th>Account no.</th>
+	  		<td> 0000 <%= @account.accnt_number %></td>
+			</tr>
+	  	<tr>
+	      <th>Name</th>
+	  		<td><%= @user.first_name.try(:humanize) %> S/O <%= @user.father_name.try(:humanize) %> <%= @user.last_name.try(:humanize) %></td>
+	  	</tr>
+	  	<tr>
+	      <th>Available balance</th>
+	  		<td>INR <%= @account.balance %></td>
+	  	</tr>
+	  </thead>
+	</table>
+
+		<% if @accnt_transactions.any? %> 	
+				<table class="table table-striped account-details">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Remark</th>
+							<th>Withdraw</th>
+							<th>Deposit</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<% @accnt_transactions.each do |accnt| %>
+						<tr>
+							<% current_balance = accnt.account.balance %>
+							<% current_balance += accnt.deposit if accnt.deposit.present? %>
+							<% current_balance -= accnt.withdraw if accnt.withdraw.present? %>
+						  <td><%= accnt.transaction_date%></td>
+							<td><%= accnt.remark %></td>
+							<td><%= accnt.withdraw %> </td>
+							<td><%= accnt.deposit %></td>
+							<td><%= current_balance %></td>
+						</tr>
+					<% end %>
+				</table>
+			<% else %>
+			<table class="table table-striped account-details">
+					<thead>
+						<tr>
+							<th style="text-align: center;">No Transaction available</th>
+						</tr>
+					</thead>
+			</table>
+		<% end %>
+
+
+
+
